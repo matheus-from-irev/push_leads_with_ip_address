@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Push leads via CSV</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dark-mode">
+
+    <!-- Dark Mode Toggle -->
+    <div class="dark-mode-toggle">
+        <label>
+            <input type="checkbox" id="darkModeToggle" checked>
+            Dark Mode
+        </label>
+    </div>
+
+    <div class="container">
+        <!-- Progress Bar -->
+        <ul id="progressbar">
+            <li class="active">IREV Login</li>
+            <li>Restricted Area Access</li>
+            <li>CSV Upload</li>
+            <li>Results</li>
+        </ul>
+
+        <form id="multi-step-form">
+            <!-- Step 1: Login to IREV -->
+            <fieldset class="form-step form-step-active">
+                <h2 class="form-title">Step 1: Login to IREV</h2>
+                <div class="form-group">
+                    <label for="login">Login Email:</label>
+                    <input type="email" id="login" name="login" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <!-- OTP Code Field (Initially Hidden) -->
+                <div class="form-group" id="otp_group" style="display: none;">
+                    <label for="otp">OTP Code:</label>
+                    <input type="text" id="otp" name="otp">
+                </div>
+                <div class="buttons">
+                    <button type="button" class="btn-next">Next</button>
+                </div>
+            </fieldset>
+
+            <!-- Step 2: Restricted Area Access -->
+            <fieldset class="form-step">
+                <h2 class="form-title">Step 2: Restricted Area Access</h2>
+                <p style="text-align:center">Tokens are restricted and need access. Click "Next" to request a confirmation code sent to your Telegram.</p>
+                <!-- Code Field (Initially Hidden) -->
+                <div class="form-group" id="code_group" style="display: none;">
+                    <label for="code">Code:</label>
+                    <input type="text" id="code" name="code">
+                </div>
+                <div class="buttons">
+                    <button type="button" class="btn-prev">Previous</button>
+                    <button type="button" class="btn-next">Next</button>
+                </div>
+            </fieldset>
+
+            <!-- Step 3: CSV Upload -->
+            <fieldset class="form-step">
+                <h2 class="form-title">Step 3: Upload CSV and Process Leads</h2>
+                <div class="form-group">
+                    <label for="affiliateSelect">Select Affiliate:</label>
+                    <select id="affiliateSelect" name="affiliateSelect" required>
+                        <!-- Options will be populated dynamically -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="csvFileInput">Choose CSV File:</label>
+                    <input type="file" id="csvFileInput" name="csvFileInput" accept=".csv" required>
+                </div>
+                <div class="buttons">
+                    <button type="button" class="btn-prev">Previous</button>
+                    <button type="button" id="uploadButton" class="btn-next">Upload and Process</button>
+                </div>
+                <div id="ip-status">
+                    <h2>IP Address Collection Status</h2>
+                    <ul id="ip-status-list"></ul>
+                </div>
+                
+                <div id="lead-status">
+                    <h2>Lead Push Status</h2>
+                    <ul id="lead-status-list"></ul>
+                </div>
+            </fieldset>
+
+            <!-- Step 4: Display Results -->
+            <fieldset class="form-step">
+                <h2 class="form-title">Step 4: Results</h2>
+                <div id="resultsDisplay">
+                    <div class="table-wrapper"></div>
+                </div>
+                <div class="buttons">
+                    <button type="button" class="btn-prev">Previous</button>
+                    <button type="button" id="exportButton" class="btn-export">Export to CSV</button>
+                </div>
+            </fieldset>
+        </form>
+        <div id="result"></div>
+    </div>
+    <!-- Include PapaParse library for CSV parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
+    <!-- Include FileSaver.js library for saving files -->
+    <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
