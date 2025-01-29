@@ -1,0 +1,350 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Variables for Light and Dark Themes */
+:root {
+    --background-color: #f6f9fc;
+    --container-background: #ffffff;
+    --text-color: #333;
+    --input-background: #fff;
+    --input-text-color: #495057;
+    --border-color: #ced4da;
+    --button-background: #007bff;
+    --button-hover: #0056b3;
+    --button-text-color: #fff;
+    --progress-circle-bg: #e0e0e0;
+    --progress-circle-text: #ffffff;
+    --error-text-color: #dc3545;
+    --error-background: #f8d7da;
+    --error-border-color: #f5c6cb;
+    --success-background: #d4edda;
+    --success-text-color: #155724;
+}
+
+body.dark-mode {
+    --background-color: #121212;
+    --container-background: #1e1e1e;
+    --text-color: #e0e0e0;
+    --input-background: #2c2c2c;
+    --input-text-color: #e0e0e0;
+    --border-color: #444;
+    --button-background: #1a73e8;
+    --button-hover: #1669bb;
+    --button-text-color: #fff;
+    --progress-circle-bg: #444;
+    --progress-circle-text: #ffffff;
+    --error-text-color: #f5c6cb;
+    --error-background: #721c24;
+    --error-border-color: #f5c6cb;
+    --success-background: #2e7d32;
+    --success-text-color: #a5d6a7;
+}
+
+/* Body Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Dark Mode Toggle */
+.dark-mode-toggle {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: var(--text-color);
+}
+
+.dark-mode-toggle label {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.dark-mode-toggle input {
+    margin-right: 5px;
+}
+
+/* Container Styling */
+.container {
+    max-width: 700px;
+    margin: 80px auto 50px auto;
+    background-color: var(--container-background);
+    padding: 40px 30px;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+    transition: background-color 0.3s;
+}
+
+/* Progress Bar */
+#progressbar {
+    display: flex;
+    padding: 0 0 30px 0;
+    margin-bottom: 30px;
+    counter-reset: step;
+    width: 100%;
+    justify-content: space-between;
+}
+
+#progressbar li {
+    list-style-type: none;
+    width: calc(100% / 5); /* Adjusted for five steps */
+    text-align: center;
+    position: relative;
+    font-weight: 600;
+    color: #9e9e9e;
+}
+
+#progressbar li:before {
+    content: counter(step);
+    counter-increment: step;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    display: block;
+    margin: 0 auto 10px auto;
+    border-radius: 50%;
+    background-color: var(--progress-circle-bg);
+    color: var(--progress-circle-text);
+    font-weight: bold;
+}
+
+#progressbar li.active {
+    color: var(--button-background);
+}
+
+#progressbar li.active:before {
+    background-color: var(--button-background);
+}
+
+/* Remove default fieldset border */
+fieldset {
+    border: none;
+}
+
+/* Form Steps */
+.form-step {
+    display: none;
+}
+
+.form-step-active {
+    display: grid;
+}
+
+/* Titles */
+.form-title {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: var(--text-color);
+    text-align: center;
+}
+
+/* Form Groups */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: var(--text-color);
+    display: block;
+    margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 16px;
+    color: var(--input-text-color);
+    background-color: var(--input-background);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: var(--button-background);
+    outline: none;
+}
+
+/* Buttons */
+.buttons {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.btn-next,
+.btn-prev,
+.btn-submit,
+#uploadButton,
+#exportButton {
+    padding: 12px 30px;
+    font-size: 16px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    margin: 5px;
+    background-color: var(--button-background);
+    color: var(--button-text-color);
+    transition: background-color 0.3s;
+}
+
+.btn-prev {
+    background-color: #6c757d;
+}
+
+.btn-next:hover,
+.btn-submit:hover,
+#uploadButton:hover,
+#exportButton:hover {
+    background-color: var(--button-hover);
+}
+
+.btn-prev:hover {
+    background-color: #5a6268;
+}
+
+/* Friendly Error Message */
+#error,
+#result {
+    margin-top: 20px;
+    font-size: 18px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+#error p.error,
+#result p.error {
+    color: #6b4f00; /* Warm brown for text */
+    background-color: #fff3cd; /* Soft pastel yellow */
+    border: 1px solid #ffeeba; /* Light golden border for subtle contrast */
+    padding: 15px 20px;
+    border-radius: 8px;
+    display: inline-block;
+    max-width: 90%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    line-height: 1.5;
+}
+
+
+
+/* Success Message */
+#result p.success {
+    color: #28a745;
+}
+
+/* ... your existing styles ... */
+
+/* Results Display */
+#resultsDisplay {
+    margin-top: 20px;
+    font-size: 16px;
+    color: var(--text-color);
+    max-height: 500px;
+    overflow-y: auto;
+    border: 1px solid var(--border-color); /* Add a border around the results container */
+    border-radius: 5px; /* Slightly rounded corners */
+}
+
+.table-wrapper {
+    overflow-x: auto; /* Add horizontal scroll for the table if needed */
+}
+
+#resultsDisplay table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#resultsDisplay th,
+#resultsDisplay td {
+    border: none; /* Remove borders from individual cells */
+    padding: 10px 15px;
+    text-align: left;
+    font-size: 14px;
+}
+
+#resultsDisplay th {
+    background-color: var(--button-background); /* Header background color */
+    color: var(--button-text-color); /* Header text color */
+    font-size: 16px;
+    position: sticky; /* Make the header sticky */
+    top: 0; /* Stick to the top */
+    z-index: 2; /* Ensure header is above other elements */
+}
+
+#resultsDisplay tr {
+    border-bottom: 1px solid var(--border-color); /* Add a subtle border between rows */
+}
+
+#resultsDisplay tr:last-child {
+    border-bottom: none; /* Remove border from the last row */
+}
+
+#resultsDisplay tr:nth-child(even) {
+    background-color: var(--input-background); /* Alternate row color for readability */
+}
+
+#resultsDisplay tr:hover {
+    background-color: var(--button-hover); /* Highlight rows on hover */
+    color: var(--button-text-color);
+    cursor: pointer;
+}
+
+.success-row {
+    background-color: var(--success-background); /* Background for success rows */
+    color: var(--success-text-color);
+}
+
+.success-row:hover {
+    background-color: var(--success-text-color);
+    color: var(--success-background);
+    cursor: pointer;
+}
+
+.error-row {
+    background-color: var(--error-background); /* Background for error rows */
+    color: var(--error-text-color);
+}
+
+.error-row:hover {
+    background-color: var(--error-text-color);
+    color: var(--error-background);
+    cursor: pointer;
+}
+
+/* Loader Styles */
+.loader {
+    border: 4px solid var(--border-color); /* Light grey border */
+    border-top: 4px solid var(--button-background); /* Blue border top */
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    animation: spin 1.5s linear infinite;
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+        padding: 30px 20px;
+    }
+
+    .form-title {
+        font-size: 22px;
+    }
+}
