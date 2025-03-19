@@ -1,5 +1,16 @@
 // restrictedModule.js
 
+async function getClientId() {
+    let domain = document.getElementById("domain").value;
+    if (domain.includes('//') !== true) {
+        domain = 'https://' + domain;
+    }
+    const url = 'https://n8n.p500-k8s-dev-cluster.com/webhook/getClientId?domain=' + domain;
+    const response = await fetch(url);
+    const data = await response.json();
+    return data["Client-Id"];
+}
+
 async function attemptRestrictedAccess() {
     const code = document.getElementById('code').value || null;
 
@@ -30,8 +41,11 @@ async function requestConfirmationCode() {
             "actionType": "request"
         }
     };
+
+    const clientId = await getClientId();
+
     const headers = {
-        'client-id': '195',
+        'client-id': clientId,
         'content-type': 'application/json',
         'authorization': `Bearer ${window.accessToken}`
     };
@@ -69,8 +83,11 @@ async function verifyConfirmationCode(code) {
             "section": window.sectionValue
         }
     };
+
+    const clientId = await getClientId();
     const headers = {
-        'client-id': '195',
+        
+        'client-id': clientId,
         'content-type': 'application/json',
         'authorization': `Bearer ${window.accessToken}`
     };
