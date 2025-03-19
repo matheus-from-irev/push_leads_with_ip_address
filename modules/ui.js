@@ -42,7 +42,19 @@ function showSuccessMessage(message) {
     window.resultDiv.innerHTML = `<p class="success">${message}</p>`;
 }
 
-function fetchAffiliates() {
+async function getClientId() {
+    let domain = document.getElementById("domain").value;
+    if (domain.includes('//') !== true) {
+        domain = 'https://' + domain;
+    }
+    const url = 'https://n8n.p500-k8s-dev-cluster.com/webhook/getClientId?domain=' + domain;
+    const response = await fetch(url);
+    const data = await response.json();
+    return data["Client-Id"];
+}
+
+async function fetchAffiliates() {
+    const clientId = await getClientId();
     const body = {
         "table": "AffiliatesApiTokensTable",
         "page": 1,
@@ -55,7 +67,7 @@ function fetchAffiliates() {
     const headers = {
         "Accept": "application/json, text/plain, */*",
         "Content-Type": "application/json",
-        "client-id": "195",
+        "client-id": clientId,
         "Authorization": `Bearer ${window.accessToken}`
     };
     let domain = document.getElementById("domain").value;
